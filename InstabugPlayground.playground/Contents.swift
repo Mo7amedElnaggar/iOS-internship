@@ -18,7 +18,7 @@ class Bug {
     
     init(state: State, timestamp: Date, comment: String) {
         // To be implemented
-        // used to initialize our local variable
+        // used to initialize our variable in class
         /* -------- Initialization  -------- */
         self.state = state
         self.timestamp = timestamp
@@ -30,7 +30,7 @@ class Bug {
         /* -------- 
          
          Take state , timestamp , comment from jsonString
-            and assign it to local Variable
+            and assign it to Variable in Class
          -> Convert jsonString from String to Dictionary as? [String : Any]
          
          -------- */
@@ -122,13 +122,13 @@ class UnitTests : XCTestCase {
         let bug3 = Bug(state: .closed, timestamp: date2WeeksAgo, comment: "Bug 3") // change bug Comment
         
         
-        /* -------- Some Bugs Created By ME -------- */
+        /* -------- Some Bugs was Created By ME -------- */
         
         // Bugs in pastDay
         let bug4 = Bug(state: .open , timestamp: Date().addingTimeInterval(-1 * (24 * 60 * 60)), comment: "Bug 4")
     
         // Bugs in pastWeek
-        let bug5 = Bug(state: .closed, timestamp: Date().addingTimeInterval(-1 * (7 * 24 * 60 * 60)), comment: "Bug 5")
+        let bug5 = Bug(state: .closed, timestamp: Date().addingTimeInterval(-1 * (6 * 24 * 60 * 60)), comment: "Bug 5")
         
         // Bugs in pastMonth
         let bug6 = Bug(state: .closed , timestamp: Date().addingTimeInterval(-1 * (28 * 24 * 60 * 60)), comment: "Bug 6")
@@ -145,6 +145,7 @@ class UnitTests : XCTestCase {
 
     func testFindOpenBugsInThePastDay() {
         let bugs = application.findBugs(state: .open, timeRange: .pastDay)
+        
         XCTAssertTrue(bugs.count == 1, "Invalid number of bugs")
         XCTAssertEqual(bugs[0].comment, "Bug 1", "Invalid bug order")
     }
@@ -158,8 +159,9 @@ class UnitTests : XCTestCase {
     
     func testFindClosedBugsInThePastWeek() {
         let bugs = application.findBugs(state: .closed, timeRange: .pastWeek)
- 
-        XCTAssertTrue(bugs.count == 0, "Invalid number of bugs")
+        
+        /* I just added 1 bugs in the pastWeek */
+        XCTAssertTrue(bugs.count == 1, "Invalid number of bugs")
     }
     
     func testInitializeBugWithJSON() {
